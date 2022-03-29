@@ -9,7 +9,8 @@ from tkinter import *
 from tkinter import filedialog
 import tkinter as tk
 import functools
-import numpy as np
+from Crypto.Cipher import DES
+import base64
 
 # Funcion para abrir el explorador y guardar la ruta
 def browseFiles(): 
@@ -27,8 +28,18 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
-        
-        return 0 # No implementado
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+        print(clave)
+        '''
+        imgp = open(ruta,'rb')
+        img = imgp.read()
+        img64 = base64.encodebytes(img)
+        imgdes = key.encrypt(img64,padding=True)
+        imr=open(ruta_aux+nombre+".bmp","wb")
+        imr.write(imgdes)
+        print("Imagen encriptada")
+        '''
 
     # Creamos interfaz para que el usario ingrese la clave
     if callback is not None:
@@ -36,7 +47,7 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
 
     main_frame = tk.Frame(master)
     labelEspacio3 = Label(main_frame, text="")
-    labelClave = Label(main_frame, text="Ingresa la clave y presiona enter", height=4)
+    labelClave = Label(main_frame, text="Ingresa la llave (8 bytes en hexadecimal)", height=4)
     numero = Entry(main_frame)
     buttonCifrar = Button(main_frame, text="Cifrar", command = cifrar)
     buttonRegresar = Button(main_frame, text = "Regresar", command = callback)
@@ -55,7 +66,7 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
-        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
+        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
         return 0 # No implementado
 
@@ -100,7 +111,7 @@ root.resizable(0,0)
 principal = tk.Frame(root)
 labelEspacio = Label(principal, text="")
 labelEspacio2 = Label(principal, text="")
-labelExplorador = Label(principal, text = "Selecciona un archivo txt", height=4)    
+labelExplorador = Label(principal, text = "Selecciona una imagen BMP", height=4)    
 buttonBuscar = Button(principal, text = "Buscar", command = browseFiles)
 buttonCifrar = Button(principal, text = "Cifrar", command=mostrar_sec)
 buttonDescifrar = Button(principal, text = "Descifrar", command=mostrar_ter)  
