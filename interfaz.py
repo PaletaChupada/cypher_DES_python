@@ -22,24 +22,161 @@ def browseFiles():
 # Funcion de decifrado
 def secundaria_v(master,  callback=None, args=(), kwargs={}):
 
-    # Funcion para cifrar
-    def cifrar():
+    # Funcion para cifrar en ECB
+    def cifrarECB():
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
-        print(clave)
-        '''
-        imgp = open(ruta,'rb')
-        img = imgp.read()
-        img64 = base64.encodebytes(img)
-        imgdes = key.encrypt(img64,padding=True)
-        imr=open(ruta_aux+nombre+".bmp","wb")
-        imr.write(imgdes)
-        print("Imagen encriptada")
-        '''
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_ECB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_eECB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Ciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.encrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen cifrada en ECB")
+    
+    # Funcion para cifrar en CBC
+    def cifrarCBC():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_CBC)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_eCBC.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Ciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.encrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen cifrada en CBC")
+    
+    # Funcion para cifrar en CFB
+    def cifrarCFB():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_CFB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_eCFB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Ciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.encrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen cifrada en CFB")
+    
+    # Funcion para cifrar en OFB
+    def cifrarOFB():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_OFB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_eOFB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Ciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.encrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen cifrada en OFB")
 
     # Creamos interfaz para que el usario ingrese la clave
     if callback is not None:
@@ -49,27 +186,180 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
     labelEspacio3 = Label(main_frame, text="")
     labelClave = Label(main_frame, text="Ingresa la llave (8 bytes en hexadecimal)", height=4)
     numero = Entry(main_frame)
-    buttonCifrar = Button(main_frame, text="Cifrar", command = cifrar)
+    buttonCifrarECB = Button(main_frame, text="Cifrar en ECB", command = cifrarECB)
+    buttonCifrarCBC = Button(main_frame, text="Cifrar en CBC", command = cifrarCBC)
+    buttonCifrarCFB = Button(main_frame, text="Cifrar en CFB", command = cifrarCFB)
+    buttonCifrarOFB = Button(main_frame, text="Cifrar en OFB", command = cifrarOFB)
     buttonRegresar = Button(main_frame, text = "Regresar", command = callback)
     labelClave.pack()
     numero.pack()
     labelEspacio3.pack()
-    buttonCifrar.pack()
+    buttonCifrarECB.pack()
+    buttonCifrarCBC.pack()
+    buttonCifrarCFB.pack()
+    buttonCifrarOFB.pack()
     buttonRegresar.pack()
 
     return main_frame
 
 def tercera_v(master,  callback=None, args=(), kwargs={}):
     
-    # Funcion para descifrar
-    def decifrar():
+    # Funcion para descifrar ECB
+    def decifrarECB():
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
-        return 0 # No implementado
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
 
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_ECB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_dECB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Desciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.decrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen descifrada en ECB")
+
+    # Funcion para descifrar CBC
+    def decifrarCBC():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_CBC)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_dCBC.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Desciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.decrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen descifrada en CBC")
+
+    # Funcion para descifrar CFB
+    def decifrarCFB():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_CFB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_dCFB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Desciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.decrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen descifrada en CFB")
+
+    # Funcion para descifrar OFB
+    def decifrarOFB():
+        ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
+        nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
+        ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
+        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+
+        # Obtenemos la clave y la convertimos a bytes
+        clave=numero.get()
+        clave=clave.encode('utf-8')
+
+        # Inicializamos el cifrador
+        cifrador = DES.new(clave,DES.MODE_OFB)
+
+        # Abrimos la image e inicializamos la imagen cifrada
+        img_or = open(ruta,"rb")
+        img_en = open(ruta_aux+nombre+"_dOFB.bmp","wb")
+        
+        # Escribimos el principio de la imagen
+        data = img_or.read(54)
+        img_en.write(data)
+
+        # Obtenemos el tamanio de la imagen
+        img_or.seek(34)
+        size = int.from_bytes(img_or.read(4),byteorder='little')
+
+        # Nos posicionamos en el inicio de la imagen
+        img_or.seek(54)
+
+        # Desciframos cada 8 bytes
+        i=0
+        while i<size:
+            pixels = img_or.read(8)
+            encrypted_pixels = cifrador.decrypt(pixels)
+            img_en.write(encrypted_pixels)
+            i=i+8
+        
+        print("Imagen descifrada en OFB")
+    
     # Creamos la tercera interfaz
     if callback is not None:
         callback = functools.partial(callback, *args, **kwargs)
@@ -78,12 +368,18 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
     labelEspacio3 = Label(main_frame, text="")
     labelLlave = Label(main_frame, text="Ingresa la llave para decifrar (funcion de cifrado)", height=4)
     numero = Entry(main_frame)
-    buttonCifrar = Button(main_frame, text="Decifrar", command=decifrar)
+    buttonCifrarECB = Button(main_frame, text="Decifrar ECB", command=decifrarECB)
+    buttonCifrarCBC = Button(main_frame, text="Decifrar CBC", command=decifrarCBC)
+    buttonCifrarCFB = Button(main_frame, text="Decifrar CFB", command=decifrarCFB)
+    buttonCifrarOFB = Button(main_frame, text="Decifrar OFB", command=decifrarOFB)
     buttonRegresar = Button(main_frame, text = "Regresar", command = callback)
     labelLlave.pack()
     numero.pack()
     labelEspacio3.pack()
-    buttonCifrar.pack()
+    buttonCifrarECB.pack()
+    buttonCifrarCBC.pack()
+    buttonCifrarCFB.pack()
+    buttonCifrarOFB.pack()
     buttonRegresar.pack()
 
     return main_frame
@@ -106,7 +402,7 @@ def mostrar_ter():
 # Creacion de la ventana y anexo de los botones y los labels                                                                                                       
 root = tk.Tk() 
 root.title('Practica 0 (Cifrador de Cesar)') 
-root.geometry("400x250")
+root.geometry("600x500")
 root.resizable(0,0)
 principal = tk.Frame(root)
 labelEspacio = Label(principal, text="")
