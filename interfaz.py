@@ -29,12 +29,14 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_ECB)
+        cifrador = DES.new(clave,DES.MODE_ECB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -68,13 +70,14 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CBC,IV)
+        cifrador = DES.new(clave,DES.MODE_CBC,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -108,13 +111,14 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CFB,IV)
+        cifrador = DES.new(clave,DES.MODE_CFB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -148,13 +152,14 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_OFB,IV)
+        cifrador = DES.new(clave,DES.MODE_OFB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -187,15 +192,19 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
 
     main_frame = tk.Frame(master)
     labelEspacio3 = Label(main_frame, text="")
-    labelClave = Label(main_frame, text="Ingresa la llave (8 bytes en hexadecimal)", height=4)
-    numero = Entry(main_frame)
+    labelK = Label(main_frame, text="Ingresa K (8 bytes)", height=4)
+    k = Entry(main_frame)
+    labelC0 = Label(main_frame, text="Ingresa C0 (8 bytes)", height=4)
+    c0 = Entry(main_frame)
     buttonCifrarECB = Button(main_frame, text="Cifrar en ECB", command = cifrarECB)
     buttonCifrarCBC = Button(main_frame, text="Cifrar en CBC", command = cifrarCBC)
     buttonCifrarCFB = Button(main_frame, text="Cifrar en CFB", command = cifrarCFB)
     buttonCifrarOFB = Button(main_frame, text="Cifrar en OFB", command = cifrarOFB)
     buttonRegresar = Button(main_frame, text = "Regresar", command = callback)
-    labelClave.pack()
-    numero.pack()
+    labelK.pack()
+    k.pack()
+    labelC0.pack()
+    c0.pack()
     labelEspacio3.pack()
     buttonCifrarECB.pack()
     buttonCifrarCBC.pack()
@@ -214,12 +223,14 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_ECB)
+        cifrador = DES.new(clave,DES.MODE_ECB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -253,13 +264,14 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CBC,IV)
+        cifrador = DES.new(clave,DES.MODE_CBC,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -293,13 +305,14 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CFB,IV)
+        cifrador = DES.new(clave,DES.MODE_CFB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -333,13 +346,14 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
         nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
 
-        # Obtenemos la clave y la convertimos a bytes
-        clave=numero.get()
+        # Obtenemos la clave y el vector inicial y la convertimos a bytes
+        clave=k.get()
         clave=clave.encode('utf-8')
-        IV=clave
+        vec_in=c0.get()
+        vec_in=vec_in.encode('utf-8')
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_OFB,IV)
+        cifrador = DES.new(clave,DES.MODE_OFB,vec_in)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -372,15 +386,19 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
 
     main_frame = tk.Frame(master)
     labelEspacio3 = Label(main_frame, text="")
-    labelLlave = Label(main_frame, text="Ingresa la llave para decifrar (funcion de cifrado)", height=4)
-    numero = Entry(main_frame)
+    labelK = Label(main_frame, text="Ingresa K (8 bytes)", height=4)
+    k = Entry(main_frame)
+    labelC0 = Label(main_frame, text="Ingresa C0 (8 bytes)", height=4)
+    c0 = Entry(main_frame)
     buttonCifrarECB = Button(main_frame, text="Decifrar ECB", command=decifrarECB)
     buttonCifrarCBC = Button(main_frame, text="Decifrar CBC", command=decifrarCBC)
     buttonCifrarCFB = Button(main_frame, text="Decifrar CFB", command=decifrarCFB)
     buttonCifrarOFB = Button(main_frame, text="Decifrar OFB", command=decifrarOFB)
     buttonRegresar = Button(main_frame, text = "Regresar", command = callback)
-    labelLlave.pack()
-    numero.pack()
+    labelK.pack()
+    k.pack()
+    labelC0.pack()
+    c0.pack()
     labelEspacio3.pack()
     buttonCifrarECB.pack()
     buttonCifrarCBC.pack()
