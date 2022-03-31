@@ -71,9 +71,10 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CBC)
+        cifrador = DES.new(clave,DES.MODE_CBC,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -110,9 +111,10 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CFB)
+        cifrador = DES.new(clave,DES.MODE_CFB,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -149,9 +151,10 @@ def secundaria_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_OFB)
+        cifrador = DES.new(clave,DES.MODE_OFB,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -253,9 +256,10 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CBC)
+        cifrador = DES.new(clave,DES.MODE_CBC,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -292,9 +296,10 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_CFB)
+        cifrador = DES.new(clave,DES.MODE_CFB,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -331,9 +336,10 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         # Obtenemos la clave y la convertimos a bytes
         clave=numero.get()
         clave=clave.encode('utf-8')
+        IV=clave
 
         # Inicializamos el cifrador
-        cifrador = DES.new(clave,DES.MODE_OFB)
+        cifrador = DES.new(clave,DES.MODE_OFB,IV)
 
         # Abrimos la image e inicializamos la imagen cifrada
         img_or = open(ruta,"rb")
@@ -395,6 +401,7 @@ def mostrar_sec():
     principal.pack_forget()
     secundaria.pack(side="top", fill="both", expand=True)
 
+# Funcion para mostrar la ventana de descifrado
 def mostrar_ter():
     principal.pack_forget()
     tercera.pack(side="top", fill="both", expand=True)
