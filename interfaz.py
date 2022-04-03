@@ -221,7 +221,7 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
-        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
         # Obtenemos la clave y el vector inicial y la convertimos a bytes
         clave=k.get()
@@ -262,7 +262,7 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
-        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
         # Obtenemos la clave y el vector inicial y la convertimos a bytes
         clave=k.get()
@@ -303,7 +303,7 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
-        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
         # Obtenemos la clave y el vector inicial y la convertimos a bytes
         clave=k.get()
@@ -344,7 +344,7 @@ def tercera_v(master,  callback=None, args=(), kwargs={}):
         ruta = labelExplorador.cget("text") # Obtenemos la direccion del archivo
         nombre = str(ntpath.basename(ruta)) # Obtenemos su nombre
         ruta_aux = str(ruta).replace(nombre,"") # Eliminamos el nombre de la ruta
-        nombre = nombre.replace("_DES.bmp","") # Eliminamos su extension del nombre
+        nombre = nombre.replace(".bmp","") # Eliminamos su extension del nombre
 
         # Obtenemos la clave y el vector inicial y la convertimos a bytes
         clave=k.get()
@@ -426,7 +426,7 @@ def mostrar_ter():
 
 # Creacion de la ventana y anexo de los botones y los labels                                                                                                       
 root = tk.Tk() 
-root.title('Practica 0 (Cifrador de Cesar)') 
+root.title('Practica 1 (Cifrador DES)') 
 root.geometry("600x500")
 root.resizable(0,0)
 principal = tk.Frame(root)
